@@ -78,10 +78,16 @@ Instead, the game tree alternates between:
 
 The tree structure per turn:
 MAX (hold dice)
-.└── CHANCE (reroll)
-.└── MAX (hold dice)
-.└── CHANCE (reroll)
-.└── LEAF (heuristic evaluation)
+└── CHANCE (reroll)
+|
+|
+└── MAX (hold dice)
+|
+|
+└── CHANCE (reroll)
+|
+|
+└── LEAF (heuristic evaluation)
 
 
 Without optimization, the tree can reach **hundreds of millions of states**.
