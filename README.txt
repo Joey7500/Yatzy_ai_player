@@ -1,44 +1,64 @@
-# 🎲 Yatzy AI Player (Expectimax)
+# Yatzy / Yahtzee — CLI Game with Expectimax AI
 
-![Python](https://img.shields.io/badge/Python-3.11%2B-blue?style=for-the-badge&logo=python)
-![Algorithm](https://img.shields.io/badge/Algorithm-Expectimax-orange?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
+A complete command-line implementation of the Yahtzee/Yatzy-style dice game featuring an **Expectimax-based AI player**. The AI evaluates re-roll decisions using expected values (chance nodes) and chooses actions that maximize long-term score potential.
 
-> **Pokročilá implementace hry Yahtzee (Kostky) v Pythonu s využitím rozhodovacího stromu Expectimax a heuristických funkcí.**
-
-Tento projekt implementuje kompletní pravidla hry Yahtzee a obsahuje **inteligentního AI agenta**, který dosahuje nadlidských výsledků (průměrně **~224 bodů** na hru) díky pravděpodobnostnímu vyhledávání a optimalizovaným heuristikám.
-
----
-
-## ✨ Klíčové vlastnosti
-
-- 🧠 **Smart AI (Expectimax)**:
-  - Používá **rozhodovací strom** s uzly náhody (Chance nodes) a volby (Max nodes).
-  - Počítá **očekávanou hodnotu (Expected Value)** každého hodu.
-  - Dynamicky se rozhoduje, které kostky držet a které přehodit.
-  
-- ⚡ **Vysoký výkon**:
-  - Využívá `@lru_cache` pro **memoizaci** stavů (cachování výpočtů).
-  - Předpočítané kombinace hodů pro bleskurychlou expanzi stromu.
-  - Bitové masky pro efektivní reprezentaci držených kostek.
-
-- 🎮 **Herní módy**:
-  - **Manuální hra**: Hrajte klasicky v terminálu.
-  - **AI Advisor**: Hrajte sami, ale nechte si poradit od AI (zobrazuje "best move").
-  - **AI Autoplay**: Sledujte AI, jak hraje celou hru za vás.
-  - **Benchmark**: Rychlá simulace stovek her pro ověření statistické úspěšnosti.
-
-- 🎨 **CLI Vizualizace**:
-  - Krásné ASCII vykreslování kostek přímo v terminálu.
-  - Přehledná skórovací tabulka (Scorecard).
+This repository is built to be:
+- Fun to play in the terminal (nice dice rendering + readable scorecard)
+- Easy to benchmark (run many games quickly)
+- A clean reference project for Expectimax in a stochastic game
 
 ---
 
-## 🛠️ Instalace a Spuštění
+## Highlights
 
-Projekt nevyžaduje žádné externí knihovny (pouze standardní Python knihovny jako `random`, `functools`, `itertools`).
+- **Full CLI game** (13 turns, scorecard categories, end-of-game total).
+- **Expectimax AI player** that decides:
+  - Which dice to hold and reroll (up to 2 rerolls)
+  - Which category to fill at the end of the turn
+- **Human mode** with optional AI advisor (AI suggests holds and/or category).
+- **Benchmark mode** to evaluate performance across many simulated games.
+- No heavy dependencies required (pure Python approach).
 
-### 1. Klonování repozitáře
+---
+
+## How Yahtzee Works (Quick Rules)
+
+Each game has **13 turns**.
+
+In every turn:
+1. Roll 5 dice.
+2. You may reroll some dice up to **two times**.
+3. After the final roll, you must choose **one** category on the scorecard and write the score there.
+4. Each category can be used only once (if a turn goes badly, you can “burn” a category with 0).
+
+Goal: maximize total points after 13 filled categories.
+
+---
+
+## Expectimax AI (Concept)
+
+Unlike minimax (which assumes an adversary), Yahtzee is a game against **chance**. Expectimax models this by alternating:
+
+- **MAX nodes**: the player chooses an action (which dice to hold).
+- **CHANCE nodes**: the dice reroll outcome is random, so the node’s value is the **expected value** over all outcomes.
+
+At a high level, the AI does:
+1. Enumerate all hold masks (which dice to keep).
+2. For each hold mask, compute expected score after rerolls.
+3. Pick the hold mask with the best expected value.
+4. At the end of the turn, choose a category using a scoring/evaluation heuristic.
+
+This makes the AI “risk-aware”: it does not chase only the best single outcome, but instead prefers actions that are statistically strong.
+
+---
+
+## Getting Started
+
+### Requirements
+- Python **3.10+** (recommended 3.11+)
+
+No extra libraries are required.
+
+### Run the game
 ```bash
-git clone https://github.com/your-username/yatzy-expectimax.git
-cd yatzy-expectimax
+python main.py
