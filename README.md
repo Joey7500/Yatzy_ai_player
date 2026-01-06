@@ -134,20 +134,28 @@ Key strategic principles implemented:
 
 ## 📁 Project Structure
 ├── main.py # Entry point & menu
+
 |
 ├── game.py # Game loop
+
 |
 ├── players.py # Human & AI players
+
 |
 ├── expectimax_turn.py # Expectimax implementation
+
 |
 ├── heuristics.py # Strategic evaluation
+
 |
 ├── scoring.py # Yahtzee scoring rules
+
 |
 ├── scorecard.py # Immutable scorecard model
+
 |
 ├── constants.py # Game constants & enums
+
 |
 └── benchmark.py # Statistics over N games
 
