@@ -1,0 +1,1 @@
+Spusťte main.py v CMD, nebo kde chcete a zahrajte si. Případně můžete spustit main.exe.
