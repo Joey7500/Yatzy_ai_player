@@ -79,13 +79,13 @@ Instead, the game tree alternates between:
 The tree structure per turn:
 MAX (hold dice)
 └── CHANCE (reroll)
-|
+
 |
 └── MAX (hold dice)
-|
+
 |
 └── CHANCE (reroll)
-|
+
 |
 └── LEAF (heuristic evaluation)
 
